@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class BookComponent extends Component {
-  handleChange = (e) => {
-    const { value } = e.target;
-
-    this.props.onUpdateBooksList(this.props.book, value);
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    shelf: PropTypes.string.isRequired,
+    onUpdateBooksList: PropTypes.func.isRequired,
+  };
+  updateBookShelf = (e) => {
+    this.props.onUpdateBooksList(this.props.book, e.target.value);
   };
   render() {
     const { book, shelf } = this.props;
@@ -18,9 +22,9 @@ class BookComponent extends Component {
               height: 193,
               backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
             }}
-          ></div>
+          />
           <div className="book-shelf-changer">
-            <select value={shelf} onChange={this.handleChange}>
+            <select value={shelf} onChange={this.updateBookShelf}>
               <option value="move" disabled>
                 Move to...
               </option>

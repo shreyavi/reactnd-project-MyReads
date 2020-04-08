@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import BookComponent from "./BookComponent";
+import PropTypes from "prop-types";
 
 class SearchBooks extends Component {
-  searchBooksQuery = (query) => {
-    BooksAPI.search(query);
+  static propTypes = {
+    //books: PropTypes.array.isRequired,
+    onUpdateBooksList: PropTypes.func.isRequired,
   };
 
   state = {
@@ -13,15 +15,13 @@ class SearchBooks extends Component {
     searchedBooks: [],
   };
 
-  searchBooksQuery = (query) => {
-    this.setState({
-      query: query.trim(),
-    });
-
+  searchBooksQuery = (event) => {
+    const query = event.target.value;
+    this.setState({ query });
     if (query) {
-      BooksAPI.search(query).then((books) => {
-        books.length > 0
-          ? this.setState({ searchedBooks: books })
+      BooksAPI.search(query.trim()).then((returnedBooks) => {
+        returnedBooks.length > 0
+          ? this.setState({ searchedBooks: returnedBooks })
           : this.setState({ searchedBooks: [] });
       });
     } else this.setState({ searchedBooks: [] });
@@ -42,7 +42,7 @@ class SearchBooks extends Component {
               type="text"
               placeholder="Search by title or author"
               value={query}
-              onChange={(event) => this.searchBooksQuery(event.target.value)}
+              onChange={this.searchBooksQuery}
             />
           </div>
         </div>
@@ -50,11 +50,13 @@ class SearchBooks extends Component {
           <ol className="books-grid">
             {searchedBooks.length > 0 &&
               searchedBooks.map((eachBook) => (
-                <BookComponent
-                  key={eachBook.id}
-                  book={eachBook}
-                  onUpdateBooksList={onUpdateBooksList}
-                />
+                <li key={eachBook.id}>
+                  <BookComponent
+                    book={eachBook}
+                    shelf={eachBook.shelf ? eachBook.shelf : "none"}
+                    onUpdateBooksList={onUpdateBooksList}
+                  />
+                </li>
               ))}
           </ol>
         </div>
