@@ -15,6 +15,7 @@ class BookList extends Component {
                 .map((returnedBook) => (
                   <li key={returnedBook.id}>
                     <BookComponent
+                      key={returnedBook.id}
                       book={returnedBook}
                       shelf={shelf}
                       onUpdateBooksList={onUpdateBooksList}

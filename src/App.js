@@ -3,6 +3,8 @@ import * as BooksAPI from "./BooksAPI";
 import "./App.css";
 import { Route } from "react-router-dom";
 import BookList from "./BookList";
+import SearchBooks from "./SearchBooks";
+import { Link } from "react-router-dom";
 
 class App extends React.Component {
   state = {
@@ -58,22 +60,22 @@ class App extends React.Component {
                 </div>
               </div>
               <div className="open-search">
-                <button onClick={() => this.setState({ showSearchPage: true })}>
-                  Add a book
-                </button>
+                <Link to="/search">
+                  <button>Add a Book</button>
+                </Link>
               </div>
             </div>
           )}
         />
-        {/*since we dont need to pass any ptops to CreateContact component we can create the Route component as follows as well
-        <Route path="/create" component={CreateContact} />*/}
-        <Route
-        // path="/seaarch"
-        // render={({ history }) => (
-        //   <CreateContact
 
-        //   />
-        // )}
+        <Route
+          path="/search"
+          render={({ history }) => (
+            <SearchBooks
+              books={this.state.books}
+              onUpdateBooksList={this.updateBooksList}
+            />
+          )}
         />
       </div>
     );

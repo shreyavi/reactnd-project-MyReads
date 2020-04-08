@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 
 class BookComponent extends Component {
-  state = {
-    value: this.props.shelf,
-  };
-  handleChange = (event) => {
-    const { value } = event.target;
-    this.setState({ value });
+  handleChange = (e) => {
+    const { value } = e.target;
+
     this.props.onUpdateBooksList(this.props.book, value);
   };
   render() {
