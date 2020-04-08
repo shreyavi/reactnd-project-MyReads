@@ -16,6 +16,14 @@ class App extends React.Component {
     );
   }
 
+  updateBooksList = (book, shelf) => {
+    BooksAPI.update(book, shelf).then((booksResult) => {
+      BooksAPI.getAll().then((booksResponse) => {
+        this.setState(() => ({ books: booksResponse }));
+      });
+    });
+  };
+
   render() {
     return (
       <div className="app">
@@ -33,16 +41,19 @@ class App extends React.Component {
                     title="Currently Reading"
                     shelf="currentlyReading"
                     books={this.state.books}
+                    onUpdateBooksList={this.updateBooksList}
                   />
                   <BookList
                     title="Want to Read"
                     shelf="wantToRead"
                     books={this.state.books}
+                    onUpdateBooksList={this.updateBooksList}
                   />
                   <BookList
                     title="Read"
                     shelf="read"
                     books={this.state.books}
+                    onUpdateBooksList={this.updateBooksList}
                   />
                 </div>
               </div>
