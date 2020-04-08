@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 class BookComponent extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired,
+    book: PropTypes.object.isRequired,
     shelf: PropTypes.string.isRequired,
     onUpdateBooksList: PropTypes.func.isRequired,
   };
