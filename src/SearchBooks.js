@@ -17,9 +17,9 @@ class SearchBooks extends Component {
 
   searchBooksQuery = (event) => {
     const query = event.target.value;
-    this.setState({ query });
-    if (query) {
-      BooksAPI.search(query.trim()).then((returnedBooks) => {
+    this.setState({ query: query.trim() });
+    if (query.length > 0) {
+      BooksAPI.search(query).then((returnedBooks) => {
         returnedBooks.length > 0
           ? this.setState({ searchedBooks: returnedBooks })
           : this.setState({ searchedBooks: [] });

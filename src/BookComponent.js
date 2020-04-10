@@ -20,7 +20,11 @@ class BookComponent extends Component {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${book.imageLinks.smallThumbnail})`,
+              backgroundImage: `url(${
+                book.hasOwnProperty("imageLinks")
+                  ? book.imageLinks.thumbnail
+                  : ""
+              })`,
             }}
           />
           <div className="book-shelf-changer">
@@ -36,7 +40,9 @@ class BookComponent extends Component {
           </div>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors.join(" & ")}</div>
+        <div className="book-authors">
+          {book.hasOwnProperty("authors") ? book.authors.join(" & ") : []}
+        </div>
       </div>
     );
   }
