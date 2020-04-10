@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 class SearchBooks extends Component {
   static propTypes = {
-    //books: PropTypes.array.isRequired,
+    books: PropTypes.array.isRequired,
     onUpdateBooksList: PropTypes.func.isRequired,
   };
 
@@ -20,28 +20,24 @@ class SearchBooks extends Component {
     this.setState({ query });
     if (query) {
       BooksAPI.search(query.trim()).then((returnedBooks) => {
-        if (returnedBooks.length > 0) {
-          returnedBooks.map((rBook) => {
-            this.props.books.map((b) => {
-              if (b.id === rBook.id) {
-                rBook.shelf = b.shelf;
-              }
-              return b;
-            });
-            return rBook;
-          });
-          console.log(returnedBooks);
-          this.setState({ searchedBooks: returnedBooks });
-        } else {
-          this.setState({ searchedBooks: [] });
-        }
+        returnedBooks.length > 0
+          ? this.setState({ searchedBooks: returnedBooks })
+          : this.setState({ searchedBooks: [] });
       });
     } else this.setState({ searchedBooks: [] });
   };
 
   render() {
-    const { query, searchedBooks } = this.state;
-    const { onUpdateBooksList } = this.props;
+    const { query } = this.state;
+    const { onUpdateBooksList, books } = this.props;
+    const searchedBooks = [...this.state.searchedBooks];
+    searchedBooks.forEach((rBook) => {
+      books.forEach((b) => {
+        if (b.id === rBook.id) {
+          rBook.shelf = b.shelf;
+        }
+      });
+    });
     return (
       <div className="search-books">
         <div className="search-books-bar">
