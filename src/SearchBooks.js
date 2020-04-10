@@ -34,16 +34,15 @@ class SearchBooks extends Component {
   render() {
     const { query } = this.state;
     const { onUpdateBooksList, books } = this.props;
-    const searchedBooks = [...this.state.searchedBooks];
-    searchedBooks.map((rBook) => {
-      books.map((b) => {
-        if (b.id === rBook.id) {
-          rBook.shelf = b.shelf;
-        }
-        return rBook;
-      });
-      return rBook;
+
+    const searchedBooks = this.state.searchedBooks.map((book) => {
+      const bookOnShelf = books.find((b) => b.id === book.id);
+      return {
+        ...book,
+        shelf: bookOnShelf ? bookOnShelf.shelf : "none",
+      };
     });
+    console.log(searchedBooks);
     return (
       <div className="search-books">
         <div className="search-books-bar">
