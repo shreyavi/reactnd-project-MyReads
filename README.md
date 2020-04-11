@@ -7,10 +7,17 @@ This is a project for Udacity's React Fundamentals course. The goal of this proj
 Install Node.js and npm first.
 Node + npm
 
-After cloning and downloading this repo from Github get started by running the following commands in the project terminal:
+## Setup
 
-- install all project dependencies with `npm install`
-- start the development server with `npm start`
+\$git clone https://github.com/shreyavi/reactnd-project-MyReads.git
+
+## Install
+
+\$npm install
+
+## Run
+
+\$ npm start
 
 ## Backend Server
 
